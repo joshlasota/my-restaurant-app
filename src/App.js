@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import restaurantImage from './restaurant.jpeg';
 
-function App() {
+function Header(props) {
+  return <h1>{props.name}'s Kitchen</h1>;
+}
+
+function Main(props) {
+  return <section>
+    <p>We serve the most {props.adjective} food around</p>
+    <img src={restaurantImage} alt="Restaurant interior" height="200" />
+    <ul>
+      {props.dishes.map((dish, index) => (
+        <li key={index}>{dish}</li>
+      ))}
+    </ul>
+  </section>;
+}
+
+function Footer(props) {
+  return <footer>Copyright {props.year} - {props.name}</footer>;
+}
+
+function App(props) {
+  const dishes = ['Pizza', 'Burger', 'Salad', 'Pasta'];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Header name={props.name} />
+      <Main adjective="delicious" dishes={dishes} />
+      <Footer year={new Date().getFullYear()} name={props.name} />
+    </React.Fragment>
   );
 }
 
